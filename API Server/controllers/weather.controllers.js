@@ -1,6 +1,6 @@
 const axios = require('axios');
 const weather_forecast_model = require('../models/weather.models.js');
-const user_model = require('../models/users.models.js');
+const user_model = require('../models/user.models.js');
 
 get_weather_forecast = async (req, res) => {
     try {

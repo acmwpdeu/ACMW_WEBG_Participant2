@@ -8,10 +8,11 @@ app.use(express.json());
 // Importing routes
 const user_routes = require('./routes/user.routes'); 
 const weather_routes = require('./routes/weather.routes.js');
+const crop_health_routes = require('./routes/crop_health_routes.js');
 
 
 // Error handling middleware
-app.use((err, _, res, _) => {
+app.use((err, _, res) => {
     console.error(err.stack);
     res.status(500).send('Something went wrong!');
 });
@@ -19,6 +20,7 @@ app.use((err, _, res, _) => {
 // integrating routes
 app.use('/api/users', user_routes);
 app.use('/api/weather', weather_routes);
+app.use('/api/crop-health', crop_health_routes);
 
 const port = process.env.API_SERVER_PORT || 3000;
 
