@@ -1,62 +1,107 @@
-const user_model = require('../models/user_model');
 const bcrypt = require('bcrypt');
-const { validationResult } = require('express-validator');
+const jwt = require('jsonwebtoken');
+const user_model = require('../models/users.models.js');
 
-// Register a new user
+// User Registration
 register_user = async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
     try {
-        const { username, email, password } = req.body;
+        const { username, email, password, location, crops, profile_picture } = req.body;
 
-        // Check if the user already exists
-        const existing_user = await user_model.findOne({ email });
-        if (existing_user) {
-            return res.status(400).json({ message: 'User already exists' });
-        }
+        const user = new user_model({
+            username,
+            email,
+            password,
+            location,
+            crops,
+            profile_picture
+        });
 
-        // Create a new user
-        const new_user = new user_model({ username, email, password });
-        await new_user.save();
+        await user.save();
 
-        // Generate tokens
-        const tokens = await new_user.generate_auth_token();
-        res.status(201).json({ user: new_user, ...tokens });
-    } 
-    catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(201).send({
+            message: 'User registered successfully',
+            user: {
+                id: user._id,
+                username: user.username,
+                email: user.email
+            }
+        });
+    } catch (error) {
+        res.status(400).send({ error: 'Registration failed', details: error.message });
     }
 };
 
-// Login user and return tokens
+// User Login
 login_user = async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
     try {
         const { email, password } = req.body;
 
-        // Find user by email
         const user = await user_model.findOne({ email });
-        if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(400).json({ message: 'Invalid email or password' });
+        if (!user) {
+            return res.status(404).send({ error: 'User not found' });
         }
 
-        // Generate tokens
-        const tokens = await user.generate_auth_token();
-        res.status(200).json(tokens);
-    } 
-    catch (error) {
-        res.status(500).json({ error: error.message });
+        const is_match = await bcrypt.compare(password, user.password);
+        if (!is_match) {
+            return res.status(400).send({ error: 'Invalid credentials' });
+        }
+
+        const { access_token, refresh_token } = await user.generate_auth_token();
+
+        res.send({
+            message: 'Login successful',
+            access_token,
+            refresh_token
+        });
+    } catch (error) {
+        res.status(500).send({ error: 'Login failed', details: error.message });
+    }
+};
+
+// View Profile
+view_profile = async (req, res) => {
+    try {
+        const user_id = req.user._id; // Assuming the user ID is stored in req.user
+        const user = await user_model.findById(user_id).select('-password');
+
+        if (!user) {
+            return res.status(404).send({ error: 'User not found' });
+        }
+
+        res.send({ user });
+    } catch (error) {
+        res.status(500).send({ error: 'Failed to fetch profile', details: error.message });
+    }
+};
+
+// Edit Profile
+edit_profile = async (req, res) => {
+    try {
+        const user_id = req.user._id; // Assuming the user ID is stored in req.user
+        const { username, location, profile_picture } = req.body;
+
+        const user = await user_model.findByIdAndUpdate(
+            user_id,
+            { username, location, profile_picture },
+            { new: true, runValidators: true }
+        ).select('-password');
+
+        if (!user) {
+            return res.status(404).send({ error: 'User not found' });
+        }
+
+        res.send({
+            message: 'Profile updated successfully',
+            user
+        });
+    } catch (error) {
+        res.status(500).send({ error: 'Failed to update profile', details: error.message });
     }
 };
 
 module.exports = {
     register_user,
     login_user,
+    view_profile,
+    edit_profile,
 };
