@@ -1,0 +1,17 @@
+{
+  "name": "bhumitra",
+  "version": "1.0.0",
+  "description": "A platform that helps farmers",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "acmw_webg"
+  ],
+  "author": "4ryaS",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
