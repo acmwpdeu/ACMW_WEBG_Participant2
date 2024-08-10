@@ -14,12 +14,6 @@ const resource_routes = require('./routes/resource.routes.js');
 const notification_routes = require('./routes/notification.routes.js');
 const pest_disease_routes = require('./routes/pest_disease.routes.js');
 
-// Error handling middleware
-app.use((err, _, res) => {
-    console.error(err.stack);
-    res.status(500).send('Something went wrong!');
-});
-
 // Integrating routes
 app.use('/api/users', user_routes);
 app.use('/api/weather', weather_routes);
@@ -28,6 +22,12 @@ app.use('/api/community-forum', community_forum_routes);
 app.use('/api/resources', resource_routes);
 app.use('/api/notifications', notification_routes);
 app.use('/api/pest_disease_alerts', pest_disease_routes);
+
+// Error handling middleware
+app.use((err, _, res) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
+});
 
 const port = process.env.API_SERVER_PORT || 3000;
 

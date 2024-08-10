@@ -1,5 +1,5 @@
 const community_forum_model = require('../models/community_forum.models');
-const user_model = require('../models/users.models');
+const user_model = require('../models/user.models');
 
 // Create a new post
 create_post = async (req, res) => {

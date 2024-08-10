@@ -1,4 +1,4 @@
-const pest_disease_alert_model = require('../models/pest_disease_alert_model');
+const pest_disease_alert_model = require('../models/pest_disease.models');
 
 // Fetch all pest and disease alerts
 get_alerts = async (req, res) => {

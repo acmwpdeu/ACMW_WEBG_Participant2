@@ -1,4 +1,4 @@
-const resource_model = require('../models/resource.model');
+const resource_model = require('../models/resource.models');
 
 // Fetch all resources
 get_resources = async (req, res) => {

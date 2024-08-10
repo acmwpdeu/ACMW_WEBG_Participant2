@@ -116,6 +116,6 @@ analyze_crop_health = async (req, res) => {
 //     }
 // };
 
-modules.exports = {
+module.exports = {
     analyze_crop_health,
 };

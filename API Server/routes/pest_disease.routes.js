@@ -6,7 +6,7 @@ const pest_disease_controller = require('../controllers/pest_disease.controllers
 router.get('/', pest_disease_controller.get_alerts);
 
 // Report a new alert
-router.post('/', pest_disease_controller.report_alert);
+router.post('/', pest_disease_controller.create_alert);
 
 // Fetch a specific alert by ID
 router.get('/:id', pest_disease_controller.get_alert_by_id);
