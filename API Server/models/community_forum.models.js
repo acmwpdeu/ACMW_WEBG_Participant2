@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 const { connection } = require('../config/database.config');
 
 const community_forum_schema = new Schema({
-  user_id: { type: Schema.Types.ObjectId, ref: 'users', required: true },
+  // user_id: { type: Schema.Types.ObjectId, ref: 'users', required: true },
   post_title: { type: String, required: true },
   post_content: { type: String, required: true },
   tags: [{ type: String }], // e.g., ["pest-control", "weather-tips"]

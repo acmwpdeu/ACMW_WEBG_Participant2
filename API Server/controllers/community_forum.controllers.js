@@ -4,10 +4,11 @@ const user_model = require('../models/user.models');
 // Create a new post
 create_post = async (req, res) => {
     const { post_title, post_content, tags } = req.body;
+    console.log(req.body);
 
     try {
         const post = new community_forum_model({
-            user_id: req.user._id,
+            // user_id: req.user._id,
             post_title,
             post_content,
             tags
