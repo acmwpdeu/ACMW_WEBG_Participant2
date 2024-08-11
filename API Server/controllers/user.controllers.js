@@ -85,11 +85,14 @@ view_profile = async (req, res) => {
 // Edit Profile
 edit_profile = async (req, res) => {
     try {
-        const user_id = req.user._id; // Assuming the user ID is stored in req.user
+        // const user_id = req.user._id; // Assuming the user ID is stored in req.user
+        const token = req.body.token;
+        const data = jwt.verify(token, process.env.JWT_SECRET);
+        // const user = await user_model.findById(data._id).select('-password');
         const { username, location, profile_picture } = req.body;
 
         const user = await user_model.findByIdAndUpdate(
-            user_id,
+            data._id,
             { username, location, profile_picture },
             { new: true, runValidators: true }
         ).select('-password');
