@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhumitra - Dashboard</title>
+    <link rel="stylesheet" href="/stylesheets/dashboard.css">
+</head>
+<body>
+    <header>
+        <img src="/images/bhumitra-nobg.png" alt="Bhumitra Logo" class="logo">
+        <nav>
+            <ul>
+                <li><a href="/auth/profile">Profile</a></li>
+                <li><a href="/resources">Resources</a></li>
+                <li><a href="/forum">Community Forum</a></li>
+                <li><a href="/notifications">Notifications</a></li>
+                <li><a href="/auth/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Welcome, <%= user.name %>!</h1>
+        <div class="profile-summary">
+            <h2>Profile Summary</h2>
+            <p><strong>Username:</strong> <%= user.username %></p>
+            <p><strong>Email:</strong> <%= user.email %></p>
+            <p><strong>Location:</strong> <%= user.location %></p>
+            <p><strong>Profile Picture:</strong></p>
+            <img src="/uploads/<%= user.profile_picture %>" alt="Profile Picture" class="profile-picture">
+        </div>
+        <div class="notifications">
+            <h2>Recent Notifications</h2>
+            <% if (notifications.length > 0) { %>
+                <ul>
+                    <% notifications.forEach(notification => { %>
+                        <li><%= notification.message %> <span class="timestamp"><%= notification.timestamp %></span></li>
+                    <% }); %>
+                </ul>
+            <% } else { %>
+                <p>No new notifications.</p>
+            <% } %>
+        </div>
+        <div class="recent-activities">
+            <h2>Recent Activities</h2>
+            <!-- Example of recent activities -->
+            <ul>
+                <li>Updated profile information.</li>
+                <li>Joined a new discussion in the community forum.</li>
+                <li>Added new crops to your profile.</li>
+            </ul>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Bhumitra. All rights reserved.</p>
+    </footer>
+</body>
+</html>

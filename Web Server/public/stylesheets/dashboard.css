@@ -1,0 +1,91 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background: #4a7f3d;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    padding: 80px 20px 20px;
+}
+
+h1 {
+    font-size: 28px;
+    color: #4a7f3d;
+}
+
+.profile-summary, .notifications, .recent-activities {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-summary p, .notifications p, .recent-activities ul {
+    margin: 10px 0;
+}
+
+.profile-summary img {
+    max-width: 150px;
+    border-radius: 50%;
+}
+
+.notifications ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.notifications li {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.timestamp {
+    font-size: 12px;
+    color: #666;
+}
+
+footer {
+    background: #4a7f3d;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

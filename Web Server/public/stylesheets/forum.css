@@ -1,0 +1,70 @@
+/* General styles */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #4a7f3d, #a8d8a0);
+    color: #333;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+nav a {
+    color: #4a7f3d;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 16px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    padding: 20px;
+    min-height: 80vh;
+}
+
+h1 {
+    color: #4a7f3d;
+}
+
+.forum-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.forum-post {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+}
+
+.forum-post h2 {
+    margin-top: 0;
+    color: #4a7f3d;
+}
+
+.forum-post a {
+    color: #4a7f3d;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.forum-post a:hover {
+    text-decoration: underline;
+}

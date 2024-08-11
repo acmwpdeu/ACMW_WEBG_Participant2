@@ -1,5 +1,7 @@
 const axios = require('axios');
-const user_model = require('../../API Server/models/user.models');
+const multer = require('multer');
+const path = require('path');
+// const user_model = require('../../API Server/models/user.models');
 // const { register_user, login_user } = require('../../API Server/controllers/user.controllers');
 
 // Get registration page
@@ -54,10 +56,41 @@ get_profile_page = async (req, res) => {
     }
 };
 
-// Update user profile
+// // Update user profile
+// update_user_profile = async (req, res) => {
+//     try {
+//         const response = await axios.put('http://localhost:3000/api/users/profile', { token: req.cookies.a_token });
+//         res.redirect('/auth/profile');
+//     } catch (error) {
+//         res.render('profile', { error: error.response.data.message });
+//     }
+// };
+
+// Set up multer for file uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({ storage: storage });
+
+// Update user profile with file upload
 update_user_profile = async (req, res) => {
     try {
-        const response = await axios.put('http://localhost:3000/api/users/profile', { token: req.cookies.a_token });
+        const { username, location } = req.body;
+        const profile_picture = req.file ? req.file.filename : undefined;
+
+        const response = await axios.put('http://localhost:3000/api/users/profile', {
+            username,
+            location,
+            profile_picture,
+            token: req.cookies.a_token
+        });
+
         res.redirect('/auth/profile');
     } catch (error) {
         res.render('profile', { error: error.response.data.message });
