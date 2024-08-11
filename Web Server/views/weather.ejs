@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <header>
+        <img src="/images/bhumitra-nobg.png" alt="Bhumitra Logo" class="logo">
+        <h1>Weather Forecast</h1>
+    </header>
+    <main class="container">
+        <div class="weather-forecast">
+            <h2>Forecast for <%= location %></h2>
+            <div class="forecast-list">
+                <% if (forecast_data && forecast_data.length > 0) { %>
+                    <% forecast_data.forEach(forecast => { %>
+                        <div class="forecast-item">
+                            <p><strong>Date:</strong> <%= new Date(forecast.date).toDateString() %></p>
+                            <p><strong>Temperature:</strong> <%= forecast.temperature %> °C</p>
+                            <p><strong>Humidity:</strong> <%= forecast.humidity %> %</p>
+                            <p><strong>Precipitation:</strong> <%= forecast.precipitation %> %</p>
+                            <p><strong>Wind Speed:</strong> <%= forecast.wind_speed %> m/s</p>
+                            <% if (forecast.alerts.length > 0) { %>
+                                <div class="alerts">
+                                    <h3>Alerts:</h3>
+                                    <% forecast.alerts.forEach(alert => { %>
+                                        <p><strong>Type:</strong> <%= alert.type %></p>
+                                        <p><strong>Description:</strong> <%= alert.description %></p>
+                                        <p><strong>Severity:</strong> <%= alert.severity %></p>
+                                    <% }) %>
+                                </div>
+                            <% } %>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No forecast data available.</p>
+                <% } %>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Bhumitra. All rights reserved.</p>
+    </footer>
+</body>
+</html>

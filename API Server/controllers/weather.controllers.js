@@ -1,19 +1,22 @@
 const axios = require('axios');
 const weather_forecast_model = require('../models/weather.models.js');
 const user_model = require('../models/user.models.js');
+const jwt = require('jsonwebtoken');
 
 get_weather_forecast = async (req, res) => {
     try {
-        const user_id = req.user._id;
-        const user = await user_model.findById(user_id);
-
+        // const user_id = req.user._id;
+        const token = req.body.token;
+        const data = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await user_model.findById(data._id);
+        
         if (!user) {
             return res.status(404).send({ error: 'User not found' });
         }
 
         const location = user.location;
         const weather_api_key = process.env.WEATHER_API_KEY;
-        const weather_url = `http://api.openweathermap.org/data/2.5/forecast?q=${location}&units=metric&appid=${weather_api_key}`;
+        const weather_url = `http://api.openweathermap.org/data/2.5/forecast?q=guj&units=metric&appid=${weather_api_key}`;
 
         const weather_response = await axios.get(weather_url);
         const forecast_data = weather_response.data.list.map(forecast => ({

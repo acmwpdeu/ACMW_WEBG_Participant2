@@ -19,6 +19,7 @@ const auth_routes = require('./routes/auth.routes');
 const dashboard_routes = require('./routes/dashboard.routes');
 const crop_health_routes = require('./routes/crop_health.routes.js');
 const community_forum_routes = require('./routes/forum.routes.js');
+const weather_routes = require('./routes/weather.routes.js');
 
 app.use(cookie_parser());
 
@@ -27,6 +28,7 @@ app.use('/auth', auth_routes);
 app.use('/', dashboard_routes);
 app.use('/crop-health', crop_health_routes);
 app.use('/community-forum', community_forum_routes);
+app.use('/weather', weather_routes);
 
 // // Error handling middleware
 // app.use((err, _, res) => {
