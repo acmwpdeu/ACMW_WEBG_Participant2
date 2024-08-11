@@ -10,11 +10,14 @@ get_register_page = (req, res) => {
 register_user = async (req, res) => {
     try {
         const response = await axios.post('http://localhost:3000/api/users/register', req.body);
-        res.redirect('/auth/login');
+        console.log(response.data);
+        res.send(response.data);
     } catch (error) {
-        res.render('register', { error: error.response.data.message });
+        console.error(error);  // Add this line for debugging
+        res.render('register', { error: error || 'Registration failed. Please try again.' });
     }
 };
+
 
 // Get login page
 get_login_page = (req, res) => {
@@ -25,10 +28,10 @@ get_login_page = (req, res) => {
 login_user = async (req, res) => {
     try {
         const response = await axios.post('http://localhost:3000/api/users/login', req.body);
-        req.session.user = response.data;
-        res.redirect('/auth/profile');
+        res.send(response.data);
+        // res.redirect('/auth/profile');
     } catch (error) {
-        res.render('login', { error: error.response.data.message });
+        res.render('login', { error: error});
     }
 };
 

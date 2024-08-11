@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const user_schema = new Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
+  name: { type: String, required: true},
   password: { type: String, required: true },
   location: { type: String },
   crops: [
@@ -23,7 +24,7 @@ const user_schema = new Schema({
 // middlewares and generators 
 user_schema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
-    this.password_hash = await bcrypt.hash(this.password, 10);
+    this.password = await bcrypt.hash(this.password, 10);
     next();
 });
 

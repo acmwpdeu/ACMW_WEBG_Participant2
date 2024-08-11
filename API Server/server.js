@@ -23,11 +23,11 @@ app.use('/api/resources', resource_routes);
 app.use('/api/notifications', notification_routes);
 app.use('/api/pest_disease_alerts', pest_disease_routes);
 
-// Error handling middleware
-app.use((err, _, res) => {
-    console.error(err.stack);
-    res.status(500).send('Something went wrong!');
-});
+// // Error handling middleware
+// app.use((err, _, res) => {
+//     console.error(err.stack);
+//     res.status(500).send('Something went wrong!');
+// });
 
 const port = process.env.API_SERVER_PORT || 3000;
 

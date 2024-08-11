@@ -5,12 +5,13 @@ const user_model = require('../models/user.models.js');
 // User Registration
 register_user = async (req, res) => {
     try {
-        const { username, email, password, location, crops, profile_picture } = req.body;
+        const { name, username, email, password, location, crops, profile_picture } = req.body;
 
         const user = new user_model({
+            name,
             username,
             email,
-            password,
+            password: password,
             location,
             crops,
             profile_picture
@@ -40,16 +41,19 @@ login_user = async (req, res) => {
         if (!user) {
             return res.status(404).send({ error: 'User not found' });
         }
+        user_id = user._id;
 
         const is_match = await bcrypt.compare(password, user.password);
         if (!is_match) {
             return res.status(400).send({ error: 'Invalid credentials' });
         }
 
+
         const { access_token, refresh_token } = await user.generate_auth_token();
 
         res.send({
             message: 'Login successful',
+            user_id,
             access_token,
             refresh_token
         });
