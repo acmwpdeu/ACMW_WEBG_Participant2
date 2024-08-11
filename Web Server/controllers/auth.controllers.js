@@ -35,8 +35,8 @@ login_user = async (req, res) => {
         const options = { httpOnly: true, secure: true };
         res.cookie('a_token', response.data.access_token, options).cookie('r_token', response.data.refresh_token, options);
         // res.redirect(`/profile/${data.logged_in_user._id}`);
-        res.send(response.data);
-        // res.redirect('/auth/profile');
+        // res.send(response.data);
+        res.redirect('/auth/profile');
     } catch (error) {
         res.render('login', { error: error});
     }
