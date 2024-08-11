@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 require('dotenv').config();
+const cookie_parser = require('cookie-parser');
 
 // Set up EJS
 app.set('view engine', 'ejs');
@@ -16,6 +17,8 @@ app.use(express.json());
 
 const user_routes = require('./routes/user.routes');
 const auth_routes = require('./routes/auth.routes');
+
+app.use(cookie_parser());
 
 app.use('/', user_routes);
 app.use('/auth', auth_routes);

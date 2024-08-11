@@ -50,6 +50,7 @@ login_user = async (req, res) => {
 
 
         const { access_token, refresh_token } = await user.generate_auth_token();
+        req.user = user;
 
         res.send({
             message: 'Login successful',
@@ -65,8 +66,11 @@ login_user = async (req, res) => {
 // View Profile
 view_profile = async (req, res) => {
     try {
-        const user_id = req.user._id; // Assuming the user ID is stored in req.user
-        const user = await user_model.findById(user_id).select('-password');
+        // const user_id = req.user._id; // Assuming the user ID is stored in req.user
+        const token = req.body.token;
+        const data = jwt.verify(token, process.env.JWT_SECRET);
+        // res.send(data);
+        const user = await user_model.findById(data._id).select('-password');
 
         if (!user) {
             return res.status(404).send({ error: 'User not found' });

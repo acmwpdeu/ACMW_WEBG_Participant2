@@ -30,7 +30,7 @@ router.post('/login',
 );
 
 // View profile route
-router.get('/profile', user_controller.view_profile);
+router.post('/profile', user_controller.view_profile);
 
 // Edit profile route
 router.put('/profile',
