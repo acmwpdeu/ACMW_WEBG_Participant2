@@ -4,6 +4,9 @@ const app = express();
 require('dotenv').config();
 const cookie_parser = require('cookie-parser');
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // Set up EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -12,18 +15,19 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+
 
 const user_routes = require('./routes/user.routes');
 const auth_routes = require('./routes/auth.routes');
 const dashboard_routes = require('./routes/dashboard.routes');
+const crop_health_routes = require('./routes/crop_health.routes.js');
 
 app.use(cookie_parser());
 
 app.use('/', user_routes);
 app.use('/auth', auth_routes);
 app.use('/', dashboard_routes);
+app.use('/crop-health', crop_health_routes);
 
 // // Error handling middleware
 // app.use((err, _, res) => {
