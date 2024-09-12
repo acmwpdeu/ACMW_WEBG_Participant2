@@ -1,5 +1,7 @@
 # Bhumitra: Crop Health Monitoring and Advisory System
 
+## Demo Video Link: https://youtu.be/o0cW7WJ61y4 
+
 ## Brand Motive and Value
 
 At Bhumitra, we believe that every small-scale farmer deserves access to cutting-edge technology and community support to optimize their crop management. Our mission is to empower farmers with data-driven insights, foster a sense of community, and promote sustainable agricultural practices.
